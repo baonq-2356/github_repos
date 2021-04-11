@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.sun.github__repo_demo.common.Constants.LoadStates" />
+
+        <variable
+            name="loadState"
+            type="LoadStates" />
+
+        <variable
+            name="listener"
+            type="com.sun.mooos.ui.adapter.LoadStateListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:visibility="@{loadState != LoadStates.NOT_LOADING ? View.VISIBLE : View.GONE}">
+
+        <ProgressBar
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerInParent="true"
+            android:visibility="@{(loadState == LoadStates.LOADING) ? View.VISIBLE : View.GONE}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:onClick="@{v -> listener.onRetryLoadData()}"
+            android:text="Retry"
+            android:textColor="@color/design_default_color_primary"
+            android:visibility="@{(loadState == LoadStates.ERROR) ? View.VISIBLE : View.GONE}" />
+    </RelativeLayout>
+</layout>
